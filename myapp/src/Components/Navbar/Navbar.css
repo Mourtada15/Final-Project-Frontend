@@ -1,0 +1,53 @@
+.navbar {
+  padding: 1rem 2rem;
+}
+
+.navbar-nav {
+  gap: 1rem;
+  padding-left: 2rem;
+}
+
+.nav-link {
+  transition: all 0.2s ease-in-out;
+}
+
+.nav-link:hover {
+  color: #5bb3ff;
+}
+
+.nav-link-cta {
+  background-color: rgb(13, 110, 253);
+  border-radius: 8px;
+  color: white;
+  width: 8vw;
+  text-align: center;
+}
+
+.nav-link-cta:hover {
+  color: white;
+  background-color: hsl(216, 98%, 40%);
+}
+
+@media screen and (max-width: 991px) {
+  .nav-link-cta {
+    width: 100%;
+  }
+
+  .navbar-nav {
+    padding-left: 0rem;
+  }
+
+  .nav-link-home {
+    margin-top: 10px;
+  }
+}
+
+/* @media screen and (max-width: 991px) {
+  .nav-link-cta {
+    width: 50%;
+  }
+
+  .navbar-nav {
+    padding-left: 0rem;
+  }
+} */

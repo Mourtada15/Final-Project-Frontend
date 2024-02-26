@@ -1,0 +1,10 @@
+body {
+  background-color: rgb(91, 179, 255, 0.2);
+  /* background-color: rgb(132, 132, 132, 0.2); */
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}

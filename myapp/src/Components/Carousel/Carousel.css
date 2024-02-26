@@ -1,0 +1,10 @@
+.carousel {
+  /* height: calc(100vh - 380px); */
+  width: 85%;
+  margin: auto;
+  /* background-color: red; */
+}
+
+.d-block{
+  height: 57vh;
+}

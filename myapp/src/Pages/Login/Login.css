@@ -1,0 +1,99 @@
+.login-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  gap: 2rem;
+}
+
+.login-wrapper-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  /* margin-top: -4rem; */
+}
+
+.login-wrapper h1 {
+  text-align: center;
+}
+
+.login-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: white;
+  width: 30vw;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0px 0px 5px 0px rgba(158, 158, 158, 0.8);
+  gap: 2rem;
+}
+
+.login-body p {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.login-form input {
+  border: 2px solid gray;
+  border-radius: 6px;
+  height: 2.4rem;
+}
+/* .login-form input::placeholder {
+  opacity: 0;
+} */
+
+.login-form input:focus {
+  border-color: #5bb3ff;
+  outline: none;
+}
+
+.login-form button {
+  border: unset;
+  background-color: #5bb3ff;
+  border-radius: 6px;
+  height: 2.4rem;
+  color: white;
+  width: 10rem;
+  /* padding: 0 2rem; */
+  align-self: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.login-form button:hover {
+  background-color: hsl(208, 100%, 58%);
+}
+
+@media screen and (max-width: 500px) {
+  .login-form label {
+    display: none;
+  }
+
+  .login-form input::placeholder {
+    opacity: 1;
+  }
+
+  .login-body {
+    width: unset;
+    gap: 0;
+  }
+
+  .login-body h1 {
+    margin-bottom: 2rem;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .login-body {
+    width: unset;
+    gap: 0;
+  }
+}

@@ -1,9 +1,9 @@
 import "../Carousel/Carousel.css"
-import a from "../../Images/a.png"
-import b from "../../Images/b.jpeg"
-import c from "../../Images/c.jpeg"
-import d from "../../Images/d.jpeg"
-import e from "../../Images/e.jpeg"
+import a from "../../Images/a.webp"
+import b from "../../Images/b.webp"
+import c from "../../Images/c.webp"
+import d from "../../Images/d.jpg"
+import e from "../../Images/e.png"
 
 const Carousel = () => {
   return (

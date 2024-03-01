@@ -19,6 +19,10 @@
   width: 5rem;
   height: 5rem;
   margin-bottom: 1rem;
+  transition: all 0.2s ease-in-out;
+}
+.categories-card img:hover {
+  scale: 1.1;
 }
 
 .dropdown-toggle {

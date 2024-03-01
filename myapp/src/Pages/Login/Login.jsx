@@ -1,14 +1,60 @@
 import "./Login.css";
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useState } from "react";
+import { Link, useNavigate } from 'react-router-dom';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import instance from "../../api";
 
 const Login = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [login, setLogin] = useState({
+    email: '',
+    password: ''
+  })
+
+  const navigate = useNavigate();
+
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleInputChange = (e) => {
+    setLogin({
+      ...login, [e.target.name]: e.target.value
+    })
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await instance.post('/api/users/login', login)
+
+      if (response.status !== 200) {
+        throw new Error(response.data.message || 'Login failed.');
+      }
+      setLogin({
+        email: '',
+        password: ''
+      })
+
+      const { token } = response.data
+      if (token) {
+        sessionStorage.setItem('token', true)
+        navigate('/');
+      } else {
+        toast.error('Login failed. Please try again.');
+      }
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || 'Login failed. Please try again.'
+      toast.error(errorMessage);
+    }
+  }
 
   return (
     <>
+      <ToastContainer />
       <div className='login-wrapper'>
         <div className="login-wrapper-logo">
           <Link to="/"><img src="logo.png" alt="" width="140rem" height="70rem" /></Link>
@@ -17,35 +63,37 @@ const Login = () => {
         </div>
         <div className="login-body">
           <h1>Log In</h1>
-          <form className='login-form'>
+          <form className='login-form' onSubmit={handleSubmit}>
 
-            {/* <label htmlFor="email">Email</label> */}
             <input
-              type="text"
+              type="email"
               id='email'
               name="email"
-              placeholder=" Email"
+              value={login.email}
+              placeholder="Email"
+              onChange={handleInputChange}
               required
             />
+            <div className="password-field">
+              <input
+                type={showPassword ? "text" : "password"}
+                id='password'
+                name="password"
+                value={login.password}
+                placeholder="Password"
+                onChange={handleInputChange}
+                required
+              />
+              <span className="password-visibility-toggle" onClick={handleShowPassword}>
+                {showPassword ? <FaEye /> : <FaEyeSlash />}
+              </span>
+            </div>
 
-            {/* <label htmlFor="password">Password</label> */}
-            <input
-              type="text"
-              id='password'
-              name="password"
-              placeholder=" Password"
-              required
-            />
-
-            <span className="password-visibility-toggle">
-            </span>
-
-            <button type="submit">LOG IN</button>
+            <button type="submit">Log In</button>
             <p>Don't have an account? <Link to='/signup'>Sign up</Link></p>
           </form>
         </div>
       </div>
-      <ToastContainer />
     </>
 
   );

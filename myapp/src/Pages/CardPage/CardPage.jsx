@@ -1,36 +1,32 @@
-import { useState, useEffect } from 'react';
+import { useContext } from 'react';
 import instance from '../../api';
 import Navbar from "../../Components/Navbar/Navbar";
+import Footer from "../../Components/Footer/Footer"
 import { useLocation } from 'react-router-dom'; // Import useLocation hook
 import "./CardPage.css";
+import DataContext from '../../ContextAPI/Context'
 
 const CardPage = () => {
-  const [products, setProducts] = useState([]);
   const location = useLocation(); // Get the current location
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await instance.get('/api/products');
-        setProducts(response.data);
-      } catch (error) {
-        console.error('Error fetching products', error.message);
-      }
-    };
-
-    fetchProducts();
-  }, []);
+  const { categories, subCategories, products } = useContext(DataContext);
 
   // Filter products based on category from URL parameter
   const categoryParam = new URLSearchParams(location.search).get('category');
-  const filteredProducts = categoryParam ? products.filter(product => product.subCategoryID.category === categoryParam) : products;
+  const decodedCategoryParam = categoryParam ? decodeURIComponent(categoryParam) : null;
+  const filteredProducts = decodedCategoryParam ? products.filter(product => product.subCategoryID.category === decodedCategoryParam) : products;
+
 
   return (
     <div className='card-page-wrapper'>
       <Navbar />
       <div className="card-wrapper" id="House" >
         <div className="category-header-in-wrapper">
-          <span><h5>{categoryParam || 'House'} | </h5>Furniture - Appliances - Household</span>
+          <span><h5>{categoryParam || 'House'} | </h5>
+            {subCategories.filter((subCategory) => subCategory.category === decodedCategoryParam).map((subCategory, index) =>
+              <span key={subCategory._id}>{subCategory.name} {index < subCategories.filter((subCategory) => subCategory.category === decodedCategoryParam).length - 1 ? ' - ' : ''} </span>
+            )}
+          </span>
         </div>
         <div className="card-container">
           {filteredProducts.map((product) => (
@@ -41,12 +37,17 @@ const CardPage = () => {
               <div className="card-body">
                 <h5 className="card-title">{product.title}</h5>
                 <p className="card-text">{product.description.substring(0, 100)}...</p>
-                <a href="#" className="btn btn-primary">More details</a>
+                <div className='card-more-details'>
+                  <a href="#" className="btn btn-primary">More details</a>
+                  <span style={{ color: "gray" }}>|</span>
+                  <p><b>{product.price}$</b></p>
+                </div>
               </div>
             </div>
           ))}
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

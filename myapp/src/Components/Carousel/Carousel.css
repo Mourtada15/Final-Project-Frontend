@@ -8,3 +8,7 @@
 .d-block{
   height: 57vh;
 }
+
+.carousel-item img {
+  object-fit: fill;
+}

@@ -5,6 +5,8 @@ import Login from './Pages/Login/Login';
 import Signup from './Pages/Signup/Signup';
 import CardPage from './Pages/CardPage/CardPage';
 import CardDetails from './Components/CardDetails/CardDetails';
+import NotFound from './Components/NotFound/NotFound';
+import CardEdit from './Components/CardEdit/CardEdit';
 
 function App() {
   return (
@@ -15,9 +17,12 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/cardpage" element={<CardPage />} />
         <Route path="/carddetails" element={<CardDetails />} />
+        <Route path="/cardedit" element={<CardEdit />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );
 }
 
 export default App;
+

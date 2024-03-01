@@ -92,6 +92,7 @@ function CardDetails() {
 
     <div className="carddetails-wrapper">
       <Navbar />
+      <h3> Your place to sell your items with <b><i>Ease!</i></b></h3>
       <form className="accordion-main" onSubmit={handleSubmit}>
 
         <div className="accordion-field">

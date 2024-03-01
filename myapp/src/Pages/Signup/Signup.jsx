@@ -1,14 +1,66 @@
 import "../Login/Login.css";
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-// import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import instance from "../../api"
 
 const Signup = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [signUp, setSignUp] = useState({
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+    location: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  })
+
+  const navigate = useNavigate();
+
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleInputChange = (e) => {
+    setSignUp({
+      ...signUp,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await instance.post('/api/users/register', signUp);
+      console.log(response)
+      setSignUp({
+        firstName: '',
+        lastName: '',
+        phoneNumber: '',
+        location: '',
+        email: '',
+        password: '',
+        confirmPassword: ''
+      });
+      toast.success('Sign up successful! Redirecting to login page...', {
+        autoClose: 2500,
+      });
+      setTimeout(() => {
+        navigate('/login');
+      }, 3000);
+    } catch (error) {
+      // console.error(error.response.data)
+      const errorMessage = error.response.data.message || 'Sign up failed. Please try again.'
+      toast.error(errorMessage);
+    }
+  }
 
   return (
     <>
+      <ToastContainer />
       <div className='login-wrapper'>
         <div className="login-wrapper-logo">
           <Link to="/"><img src="logo.png" alt="" width="140rem" height="70rem" /></Link>
@@ -17,44 +69,63 @@ const Signup = () => {
         </div>
         <div className="login-body">
           <h1>Sign Up</h1>
-          <form className='login-form'>
+          <form className='login-form' onSubmit={handleSubmit}>
 
-            {/* <label htmlFor="email">Email</label> */}
+            <div className="inside-login-form">
+              <input type="text" id="firstName" name="firstName" value={signUp.firstName} placeholder="First Name" onChange={handleInputChange} required />
+              <input type="text" id="lastName" name="lastName" value={signUp.lastName} placeholder="Last Name" onChange={handleInputChange} required />
+            </div>
+
+            <div className="inside-login-form">
+              <input type="text" id="phoneNumber" name="phoneNumber" value={signUp.phoneNumber} placeholder="Phone Number" onChange={handleInputChange} required />
+              <input type="text" id="location" name="location" value={signUp.location} placeholder="Location" onChange={handleInputChange} required />
+            </div>
+
             <input
-              type="text"
+              type="email"
               id='email'
               name="email"
-              placeholder=" Email"
+              value={signUp.email}
+              placeholder="Email"
+              onChange={handleInputChange}
               required
             />
 
-            {/* <label htmlFor="password">Password</label> */}
-            <input
-              type="text"
-              id='password'
-              name="password"
-              placeholder=" Password"
-              required
-            />
+            <div className="password-field">
+              <input
+                type={showPassword ? "text" : "password"}
+                id='password'
+                name="password"
+                value={signUp.password}
+                placeholder="Password"
+                onChange={handleInputChange}
+                required
+              />
+              <span className="password-visibility-toggle" onClick={handleShowPassword}>
+                {showPassword ? <FaEye /> : <FaEyeSlash />}
+              </span>
+            </div>
 
-            {/* <label htmlFor="confirmPassword"> Confirm Password</label> */}
-            <input
-              type="text"
-              id='confirmPassword'
-              name="confirmPassword"
-              placeholder=" Confirm Password"
-              required
-            />
+            <div className="password-field">
+              <input
+                type={showPassword ? "text" : "password"}
+                id='confirmPassword'
+                name="confirmPassword"
+                value={signUp.confirmPassword}
+                placeholder="Confirm Password"
+                onChange={handleInputChange}
+                required
+              />
+              <span className="password-visibility-toggle" onClick={handleShowPassword}>
+                {showPassword ? <FaEye /> : <FaEyeSlash />}
+              </span>
+            </div>
 
-            <span className="password-visibility-toggle">
-            </span>
-
-            <button type="submit">SIGN UP</button>
+            <button type="submit">Sign Up</button>
             <p>Already signed up! <Link to='/login'>Login</Link></p>
           </form>
-        </div>
-      </div>
-      <ToastContainer />
+        </div >
+      </div >
     </>
 
   );

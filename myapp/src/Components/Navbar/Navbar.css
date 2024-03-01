@@ -4,7 +4,6 @@
 
 .navbar-nav {
   gap: 1rem;
-  padding-left: 2rem;
 }
 
 .nav-link {
@@ -25,7 +24,23 @@
 
 .nav-link-cta:hover {
   color: white;
-  background-color: hsl(216, 98%, 40%);
+  background-color: hsl(216, 98%, 35%);
+}
+.nav-link-cta-hide {
+  display: none;
+}
+
+.me-auto {
+  margin-right: unset !important;
+}
+
+.navbar-collapse {
+  justify-content: space-between;
+}
+
+.d-flex {
+  width: 70%;
+  margin-left: 6rem;
 }
 
 @media screen and (max-width: 991px) {
@@ -33,14 +48,24 @@
     width: 100%;
   }
 
-  .navbar-nav {
-    padding-left: 0rem;
-  }
-
   .nav-link-home {
     margin-top: 10px;
   }
+
+  .navbar-collapse {
+    margin-top: 1rem;
+  }
+
+  .d-flex {
+    width: 100%;
+  }
+
+  .d-flex {
+    margin-left: unset;
+  }
 }
+
+
 
 /* @media screen and (max-width: 991px) {
   .nav-link-cta {

@@ -3,7 +3,7 @@ import "../Categories/Categories.css"
 const Categories = () => {
   return (
     <>
-      <div className="categories-card-container">
+      <div className="categories-card-container" data-aos="fade-left">
         <div className="categories-card">
           <a href="#House"><img src="home.png" alt="icon" /></a>
           <div className="dropdown">

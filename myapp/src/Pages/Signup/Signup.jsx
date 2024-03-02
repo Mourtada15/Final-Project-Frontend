@@ -1,9 +1,10 @@
 import "../Login/Login.css";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
 import instance from "../../api"
+import AOS from "aos";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -16,6 +17,10 @@ const Signup = () => {
     password: '',
     confirmPassword: ''
   })
+
+  useEffect(() => {
+    AOS.init({ duration: 1000 });
+  }, []);
 
   const navigate = useNavigate();
 
@@ -61,7 +66,7 @@ const Signup = () => {
   return (
     <>
       <ToastContainer />
-      <div className='login-wrapper'>
+      <div className='login-wrapper' data-aos="zoom-in">
         <div className="login-wrapper-logo">
           <Link to="/"><img src="logo.png" alt="" width="140rem" height="70rem" /></Link>
           <h1>Welcome to MarketEase!</h1>

@@ -1,11 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import "./Cards.css";
 import instance from '../../api';
 import DataContext from '../../ContextAPI/Context'
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Cards = () => {
-
+  useEffect(() => {
+    AOS.init({ duration: 1000 });
+  }, []);
   const { categories, subCategories, products } = useContext(DataContext);
 
   if (!categories.length || !subCategories.length || !products.length) {
@@ -21,7 +25,7 @@ const Cards = () => {
   return (
     <>
       {categories.map((category) => (
-        <div className="card-wrapper" key={category._id} id={category.name}>
+        <div className="card-wrapper" key={category._id} id={category.name} data-aos="fade-right">
 
           <div className="category-header-in-wrapper">
             <span>
@@ -43,7 +47,7 @@ const Cards = () => {
                     <h5 className="card-title">{product.title}</h5>
                     <p className="card-text">{product.description.substring(0, 100)}{product.description.length > 100 ? '...' : ''}</p>
                     <div className='card-more-details'>
-                      <a href="#" className="btn btn-primary">More details</a>
+                      <Link to={``} className="btn btn-primary">More details</Link>
                       <span style={{ color: "gray" }}>|</span>
                       <p><b>{product.price}$</b></p>
                     </div>

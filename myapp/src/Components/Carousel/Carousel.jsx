@@ -9,7 +9,7 @@ const Carousel = () => {
   return (
     <>
       <div id="carouselExampleAutoplaying" className="carousel slide" data-bs-ride="carousel">
-        <div className="carousel-inner">
+        <div className="carousel-inner" data-aos="fade-right">
           <div className="carousel-item active">
             <img src={a} className="d-block w-100" alt="..." />
           </div>

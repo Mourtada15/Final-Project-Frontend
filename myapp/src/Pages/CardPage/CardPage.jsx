@@ -1,13 +1,18 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import instance from '../../api';
 import Navbar from "../../Components/Navbar/Navbar";
 import Footer from "../../Components/Footer/Footer"
 import { useLocation } from 'react-router-dom'; // Import useLocation hook
 import "./CardPage.css";
 import DataContext from '../../ContextAPI/Context'
+import AOS from "aos";
 
 const CardPage = () => {
   const location = useLocation(); // Get the current location
+
+  useEffect(() => {
+    AOS.init({ duration: 1000 });
+  }, []);
 
   const { categories, subCategories, products } = useContext(DataContext);
 
@@ -20,15 +25,15 @@ const CardPage = () => {
   return (
     <div className='card-page-wrapper'>
       <Navbar />
-      <div className="card-wrapper" id="House" >
-        <div className="category-header-in-wrapper">
+      <div className="card-wrapper" id="House">
+        <div className="category-header-in-wrapper" data-aos="fade-right">
           <span><h5>{categoryParam || 'House'} | </h5>
             {subCategories.filter((subCategory) => subCategory.category === decodedCategoryParam).map((subCategory, index) =>
               <span key={subCategory._id}>{subCategory.name} {index < subCategories.filter((subCategory) => subCategory.category === decodedCategoryParam).length - 1 ? ' - ' : ''} </span>
             )}
           </span>
         </div>
-        <div className="card-container">
+        <div className="card-container" data-aos="fade-right">
           {filteredProducts.map((product) => (
             <div key={product._id} className='card' target='_blank'>
               <div className="card-image-container">

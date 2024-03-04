@@ -7,7 +7,7 @@ import CardPage from './Pages/CardPage/CardPage';
 import CardDetails from './Components/CardDetails/CardDetails';
 import NotFound from './Components/NotFound/NotFound';
 import CardEdit from './Components/CardEdit/CardEdit';
-import NotFound from './Pages/404page/NotFound';
+
 function App() {
   return (
     <Router>

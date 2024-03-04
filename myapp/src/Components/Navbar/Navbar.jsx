@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import "../Navbar/Navbar.css"
+import "./Navbar.css"
 import AOS from "aos";
 
 const Navbar = () => {

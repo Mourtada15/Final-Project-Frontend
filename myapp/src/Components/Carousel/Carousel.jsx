@@ -1,4 +1,4 @@
-import "../Carousel/Carousel.css"
+import "./Carousel.css"
 import a from "../../Images/a.webp"
 import b from "../../Images/b.webp"
 import c from "../../Images/c.webp"

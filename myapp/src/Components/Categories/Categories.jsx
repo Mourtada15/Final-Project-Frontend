@@ -1,4 +1,4 @@
-import "../Categories/Categories.css"
+import "./Categories.css"
 
 const Categories = () => {
   return (

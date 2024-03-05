@@ -10,6 +10,7 @@ const Cards = () => {
   useEffect(() => {
     AOS.init({ duration: 1000 });
   }, []);
+
   const { categories, subCategories, products } = useContext(DataContext);
 
   if (!categories.length || !subCategories.length || !products.length) {
@@ -21,7 +22,6 @@ const Cards = () => {
       <div className="circle" tabIndex="0"></div>
     </div>;
   }
-
   return (
     <>
       {categories.map((category) => (
@@ -47,7 +47,7 @@ const Cards = () => {
                     <h5 className="card-title">{product.title}</h5>
                     <p className="card-text">{product.description.substring(0, 100)}{product.description.length > 100 ? '...' : ''}</p>
                     <div className='card-more-details'>
-                      <Link to={``} className="btn btn-primary">More details</Link>
+                      <Link to={`/cardedit?id=${product._id}`} className="btn btn-primary">More details</Link>
                       <span style={{ color: "gray" }}>|</span>
                       <p><b>{product.price}$</b></p>
                     </div>

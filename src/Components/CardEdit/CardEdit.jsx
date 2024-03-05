@@ -12,7 +12,7 @@ const CardEdit = () => {
   const productId = new URLSearchParams(location.search).get("id");
 
   // Fetch product details based on productId from the context
-  const { categories, subCategories, products, users } = useContext(DataContext);
+  const { categories, subCategories, products } = useContext(DataContext);
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const CardEdit = () => {
     AOS.init({ duration: 1000 });
   }, []);
 
-  if (!product || !categories.length || !subCategories.length || !products.length || !users.length) {
+  if (!product || !categories.length || !subCategories.length || !products.length) {
     return <div className="loader">
       <div className="circle" tabIndex="0"></div>
       <div className="circle" tabIndex="0"></div>
@@ -70,7 +70,7 @@ const CardEdit = () => {
               <div className='cardedit-inside-info-inner'>
                 <span className='cardedit-span'>
                   <img src="email.png" alt="" />
-                  <p>{users.email}</p>
+                  <p>{'users.email'}</p>
                 </span>
                 <span className='cardedit-span'>
                   <img src="phone.png" alt="" />

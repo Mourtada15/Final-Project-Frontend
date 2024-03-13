@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import "./Navbar.css"
 import AOS from "aos";
+import instance from "../../api";
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -32,11 +33,27 @@ const Navbar = () => {
     }
   }
   const Logout = () => {
-    console.log("logout")
     sessionStorage.clear();
     setIsLoggedIn(false);
     navigate('/');
   }
+
+  // const Logout = async () => {
+  //   try {
+  //     await instance.post('/api/users/logout');
+  //     console.log('Before setIsLoggedIn(false):', isLoggedIn);
+  //     sessionStorage.clear();
+  //     setIsLoggedIn(false);
+  //     console.log('isLoggedIn:', isLoggedIn); // Add this line
+  //     navigate('/');
+  //   } catch (error) {
+  //     console.error('Error logging out:', error.message);
+  //   }
+  //   console.log('Logout clicked'); // Add this line
+  //   console.log('isLoggedIn:', isLoggedIn); // Add this line
+  // };
+  
+
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body" data-aos="fade-down">
@@ -47,13 +64,13 @@ const Navbar = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <form className="d-flex" role="search" onSubmit={handleSearch}>
-              <input 
-              className="form-control me-2" 
-              type="search" placeholder="Search for categories, items, and more..." 
-              title="Search for categories, items, and more..." 
-              aria-label="Search" 
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              <input
+                className="form-control me-2"
+                type="search" placeholder="Search for categories, items, and more..."
+                title="Search for categories, items, and more..."
+                aria-label="Search"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
               <button className="btn btn-outline-primary" type="submit">Search</button>
             </form>

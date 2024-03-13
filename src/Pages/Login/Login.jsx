@@ -34,7 +34,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await instance.post('/api/users/login', login)
+      const response = await instance.post('/api/users/login', login, { withCredentials: true })
 
       if (response.status !== 200) {
         throw new Error(response.data.message || 'Login failed.');
@@ -52,7 +52,7 @@ const Login = () => {
         toast.error('Login failed. Please try again.');
       }
     } catch (error) {
-      const errorMessage = error.response?.data?.message || 'Login failed. Please try again.'
+      const errorMessage = error.response?.data?.message || 'Login failed. Please try again.11'
       toast.error(errorMessage);
     }
   }

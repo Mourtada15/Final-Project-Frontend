@@ -10,18 +10,22 @@ import instance from '../../api';
 const CardEdit = () => {
   const location = useLocation();
   const productId = new URLSearchParams(location.search).get("id");
+  // console.log("Here", productId)
 
   // Fetch product details based on productId from the context
-  const { categories, subCategories, products } = useContext(DataContext);
-  const [product, setProduct] = useState(null);
+  const { categories, subCategories, products, users } = useContext(DataContext);
+  const [product, setProduct] = useState('');
+  console.log('Users Here: ', users)
 
   useEffect(() => {
-    // Find the product from the products array based on productId
-    const foundProduct = products.find(product => product._id === productId);
-    if (foundProduct) {
-      setProduct(foundProduct);
-    } else {
-      console.log('Could not find productId')
+    if (products.length > 0) {
+      // Find the product from the products array based on productId
+      const foundProduct = products.find(product => product._id === productId);
+      if (foundProduct) {
+        setProduct(foundProduct);
+      } else {
+        console.log('Could not find productId')
+      }
     }
   }, [productId, products]);
 
@@ -29,7 +33,7 @@ const CardEdit = () => {
     AOS.init({ duration: 1000 });
   }, []);
 
-  if (!product || !categories.length || !subCategories.length || !products.length) {
+  if (!categories.length || !subCategories.length || !products.length) {
     return <div className="loader">
       <div className="circle" tabIndex="0"></div>
       <div className="circle" tabIndex="0"></div>
@@ -39,8 +43,19 @@ const CardEdit = () => {
     </div>;
   }
 
-  const subCategory = subCategories.find(subCat => subCat._id === product.subCategoryID);
+  let subCategory;
+  if (product && product.subCategoryID && product.subCategoryID._id) {
+    subCategory = subCategories.find(subCat => subCat._id === product.subCategoryID._id);
+  }
+
+  if (!subCategory) {
+    // console.log('Could not find subCategory');
+  } else {
+    // console.log('subCategory', subCategory);
+  }
+
   const category = subCategory ? subCategory.category : '';
+  // console.log('category', category)
 
   return (
     <div className='cardedit-wrapper'>
@@ -49,8 +64,13 @@ const CardEdit = () => {
         <nav style={{ "--bs-breadcrumb-divider": "'>'" }} aria-label="breadcrumb">
           <ol className="breadcrumb">
             <li className="breadcrumb-item"><Link to="/">Home</Link></li>
-            <li className="breadcrumb-item"><Link to={`/cardpage?category=${encodeURIComponent(product.category)}`}>{product.category}</Link></li>
-            <li className="breadcrumb-item active" aria-current="page">{product.subCategory}</li>
+            <li className="breadcrumb-item"><Link to={`/cardpage?category=${encodeURIComponent(category)}`}>{category}</Link></li>
+            {product.subCategoryID && (
+              <li className="breadcrumb-item active" aria-current="page">
+                {product.subCategoryID.name}
+              </li>
+            )}
+
           </ol>
         </nav>
         <div className='cardedit-inside'>
@@ -70,15 +90,15 @@ const CardEdit = () => {
               <div className='cardedit-inside-info-inner'>
                 <span className='cardedit-span'>
                   <img src="email.png" alt="" />
-                  <p>{'users.email'}</p>
+                  <p>{users[0].email}</p>
                 </span>
                 <span className='cardedit-span'>
                   <img src="phone.png" alt="" />
-                  <p>{'user.phone-number'}</p>
+                  <p>{users[0].phoneNumber}</p>
                 </span>
                 <span className='cardedit-span'>
                   <img src="location.png" alt="" />
-                  <p>{'User.location'}</p>
+                  <p>{users[0].location}</p>
                 </span>
               </div>
             </div>

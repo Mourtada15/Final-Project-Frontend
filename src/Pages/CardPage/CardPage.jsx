@@ -2,7 +2,7 @@ import { useContext, useEffect } from 'react';
 import instance from '../../api';
 import Navbar from "../../Components/Navbar/Navbar";
 import Footer from "../../Components/Footer/Footer"
-import { useLocation } from 'react-router-dom'; // Import useLocation hook
+import { Link, useLocation } from 'react-router-dom'; // Import useLocation hook
 import "./CardPage.css";
 import DataContext from '../../ContextAPI/Context'
 import AOS from "aos";
@@ -15,6 +15,7 @@ const CardPage = () => {
   }, []);
 
   const { categories, subCategories, products } = useContext(DataContext);
+ 
 
   // Filter products based on category from URL parameter
   const categoryParam = new URLSearchParams(location.search).get('category');
@@ -43,7 +44,7 @@ const CardPage = () => {
                 <h5 className="card-title">{product.title}</h5>
                 <p className="card-text">{product.description.substring(0, 100)}...</p>
                 <div className='card-more-details'>
-                  <a href="#" className="btn btn-primary">More details</a>
+                  <Link to={`/cardedit?id=${product._id}`} className="btn btn-primary">More details</Link>
                   <span style={{ color: "gray" }}>|</span>
                   <p><b>{product.price}$</b></p>
                 </div>

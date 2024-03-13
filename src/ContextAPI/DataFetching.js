@@ -7,9 +7,8 @@ export const fetchProductsAndCategoriesAndSubCategories = async () => {
       instance.get('/api/products'),
       instance.get('/api/categories'),
       instance.get('/api/subcategories'),
-      instance.get('/api/users', { withCredentials: true }),
+      instance.get('/api/users'),
     ]);
-    console.log('usersResponse.data:', usersResponse.data); // Log the users data
     return [productsResponse.data, categoriesResponse.data, subCategoriesResponse.data, usersResponse.data];
   } catch (error) {
     console.error('Error fetching data', error.message);

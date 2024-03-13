@@ -10,12 +10,10 @@ import instance from '../../api';
 const CardEdit = () => {
   const location = useLocation();
   const productId = new URLSearchParams(location.search).get("id");
-  // console.log("Here", productId)
 
   // Fetch product details based on productId from the context
   const { categories, subCategories, products, users } = useContext(DataContext);
   const [product, setProduct] = useState('');
-  console.log('Users Here: ', users)
 
   useEffect(() => {
     if (products.length > 0) {

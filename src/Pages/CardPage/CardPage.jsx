@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import instance from '../../api';
 import Navbar from "../../Components/Navbar/Navbar";
 import Footer from "../../Components/Footer/Footer"
@@ -9,6 +9,7 @@ import AOS from "aos";
 
 const CardPage = () => {
   const location = useLocation(); // Get the current location
+  const [selectedSubcategory, setSelectedSubcategory] = useState(null);
 
   useEffect(() => {
     AOS.init({ duration: 1000 });
@@ -22,20 +23,29 @@ const CardPage = () => {
   const decodedCategoryParam = categoryParam ? decodeURIComponent(categoryParam) : null;
   const filteredProducts = decodedCategoryParam ? products.filter(product => product.subCategoryID.category === decodedCategoryParam) : products;
 
+  // Filter products based on selected subcategory
+  const filteredProductsBySubcategory = selectedSubcategory ? filteredProducts.filter(product => product.subCategoryID.name === selectedSubcategory) : filteredProducts;
+
+  // const handleSubcategoryFilter = (subcategory) => {
+  //   setSelectedSubcategory(subcategory);
+  // }
+  const handleSubcategoryFilter = (subcategory) => {
+    setSelectedSubcategory(subcategory === selectedSubcategory ? null : subcategory);
+  }
 
   return (
     <div className='card-page-wrapper'>
       <Navbar />
       <div className="card-wrapper" id="House">
         <div className="category-header-in-wrapper" data-aos="fade-right">
-          <span><h5>{categoryParam || 'House'} | </h5>
-            {subCategories.filter((subCategory) => subCategory.category === decodedCategoryParam).map((subCategory, index) =>
-              <span key={subCategory._id}>{subCategory.name} {index < subCategories.filter((subCategory) => subCategory.category === decodedCategoryParam).length - 1 ? ' - ' : ''} </span>
+          <span className='category-subcategory' ><h5>{categoryParam || 'House'} | </h5>
+            {subCategories.filter((subCategory) => subCategory.category === decodedCategoryParam).map((subCategory) =>
+              <button className={`cardpage-filter-button ${selectedSubcategory === subCategory.name ? 'category-subcategory-active' : ''}`} key={subCategory._id} onClick={() => handleSubcategoryFilter(subCategory.name)}>{subCategory.name}</button>
             )}
           </span>
         </div>
         <div className="card-container" data-aos="fade-right">
-          {filteredProducts.map((product) => (
+          {filteredProductsBySubcategory.map((product) => (
             <div key={product._id} className='card' target='_blank'>
               <div className="card-image-container">
                 <img src={`${instance.defaults.baseURL}/${product.image}`} className="card-img-top" alt="" />

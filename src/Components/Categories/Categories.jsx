@@ -1,6 +1,10 @@
+import { Link } from "react-router-dom";
 import "./Categories.css"
+import { useContext } from "react";
+import DataContext from '../../ContextAPI/Context'
 
 const Categories = () => {
+  const { categories } = useContext(DataContext);
   return (
     <>
       <div className="categories-card-container">
@@ -11,7 +15,7 @@ const Categories = () => {
               House
             </h6>
             <ul className="dropdown-menu">
-              <li><button className="dropdown-item" type="button">Furniture</button></li>
+              <li><Link to="" className="dropdown-item" type="button">Furniture</Link></li>
               <li><button className="dropdown-item" type="button">Appliances</button></li>
               <li><button className="dropdown-item" type="button">Household</button></li>
             </ul>

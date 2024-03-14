@@ -3,3 +3,34 @@
   flex-direction: column;
   gap: 2rem;
 }
+
+.cardpage-filter-button {
+  font-size: small;
+  border: 1px solid #0d6efd;
+  color: #0d6efd;
+  background-color: unset;
+  margin-left: 0.5rem;
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+}
+.cardpage-filter-button:hover {
+  background-color: rgb(13, 110, 253);
+  color: white;
+}
+
+.category-subcategory {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.category-subcategory-active {
+  background-color: rgb(13, 110, 253);
+  color: white;
+}
+
+@media screen and (max-width: 1040px) {
+  .category-subcategory {
+    gap: 0.5rem;
+  }
+}

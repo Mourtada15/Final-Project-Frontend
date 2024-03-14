@@ -95,4 +95,8 @@
   .cardedit-inside-img {
     width: unset;
   }
+
+  .cardedit-span a {
+    font-size: small;
+  }
 }

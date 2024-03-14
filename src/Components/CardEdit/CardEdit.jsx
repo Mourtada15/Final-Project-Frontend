@@ -87,15 +87,15 @@ const CardEdit = () => {
               <h5 className='cardedit-inside-info-h'>Seller Information</h5>
               <div className='cardedit-inside-info-inner'>
                 <span className='cardedit-span'>
-                  <img src="email.png" alt="" />
-                  <p>{users[0].email}</p>
+                  <img src="email.png" alt="icon" />
+                  <a href={`mailto:${users[0].email}`}>{users[0].email}</a>
                 </span>
                 <span className='cardedit-span'>
-                  <img src="phone.png" alt="" />
+                  <img src="phone.png" alt="icon" />
                   <p>{users[0].phoneNumber}</p>
                 </span>
                 <span className='cardedit-span'>
-                  <img src="location.png" alt="" />
+                  <img src="location.png" alt="icon" />
                   <p>{users[0].location}</p>
                 </span>
               </div>

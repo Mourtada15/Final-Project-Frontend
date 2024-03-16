@@ -2,85 +2,45 @@ import { Link } from "react-router-dom";
 import "./Categories.css"
 import { useContext } from "react";
 import DataContext from '../../ContextAPI/Context'
+import instance from "../../api";
 
 const Categories = () => {
-  const { categories } = useContext(DataContext);
+  const { categories, subCategories } = useContext(DataContext);
+
+  if (!categories.length || !subCategories.length) {
+    return <div className="loader">
+      <div className="circle" tabIndex="0"></div>
+      <div className="circle" tabIndex="0"></div>
+      <div className="circle" tabIndex="0"></div>
+      <div className="circle" tabIndex="0"></div>
+      <div className="circle" tabIndex="0"></div>
+    </div>;
+  }
+
   return (
     <>
       <div className="categories-card-container">
-        <div className="categories-card">
-          <a href="#House"><img src="home.png" alt="icon" /></a>
-          <div className="dropdown">
-            <h6 className="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-              House
-            </h6>
-            <ul className="dropdown-menu">
-              <li><Link to="" className="dropdown-item" type="button">Furniture</Link></li>
-              <li><button className="dropdown-item" type="button">Appliances</button></li>
-              <li><button className="dropdown-item" type="button">Household</button></li>
-            </ul>
+        {categories.map((category) =>
+          <div className="categories-card" key={category._id}>
+            <a href={`#${category.name}`}><img src={`${instance.defaults.baseURL}/${category.icon}`} alt="icon" /></a>
+            <div className="dropdown">
+              <h6 className="dropdown-toggle" data-bs-toggle="dropdown">
+                {category.name}
+              </h6>
+              <ul className="dropdown-menu">
+                {subCategories
+                  .filter((subCategory) => subCategory.category === category.name)
+                  .map((subCategory) => (
+                    <li key={subCategory._id}>
+                      <Link to={`/cardpage?category=${encodeURIComponent(category.name)}&subcategory=${encodeURIComponent(subCategory.name)}`} className="dropdown-item" type="button">
+                        {subCategory.name}
+                      </Link>
+                    </li>
+                  ))}
+              </ul>
+            </div>
           </div>
-        </div>
-        <div className="categories-card">
-          <a href="#Entertainment"><img src="entertainment.png" alt="icon" /></a>
-          <div className="dropdown">
-            <h6 className="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-              Entertainment
-            </h6>
-            <ul className="dropdown-menu">
-              <li><button className="dropdown-item" type="button">Book, Films, & Music</button></li>
-              <li><button className="dropdown-item" type="button">Video Games</button></li>
-            </ul>
-          </div>
-        </div>
-        <div className="categories-card">
-          <a href="#Clothing & Accessories"><img src="clothing.png" alt="icon" /></a>
-          <div className="dropdown">
-            <h6 className="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-              Clothing & Accessories
-            </h6>
-            <ul className="dropdown-menu">
-              <li><button className="dropdown-item" type="button">Jewelry & Accessories</button></li>
-              <li><button className="dropdown-item" type="button">Bags & Luggage</button></li>
-              <li><button className="dropdown-item" type="button">Men's Clothing & Shoes</button></li>
-              <li><button className="dropdown-item" type="button">Women's Clothing & Shoes</button></li>
-            </ul>
-          </div>
-        </div>
-        <div className="categories-card">
-          <a href="#Electronics"><img src="electronics.png" alt="icon" /></a>
-          <div className="dropdown">
-            <h6 className="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-              Electronics
-            </h6>
-            <ul className="dropdown-menu">
-              <li><button className="dropdown-item" type="button">Mobile Phones</button></li>
-              <li><button className="dropdown-item" type="button">Electronics & Computers</button></li>
-            </ul>
-          </div>
-        </div>
-        <div className="categories-card">
-          <a href="#Hobbies"><img src="hobbies.png" alt="icon" /></a>
-          <div className="dropdown">
-            <h6 className="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-              Hobbies
-            </h6>
-            <ul className="dropdown-menu">
-              <li><button className="dropdown-item" type="button">Sports & Outdoors</button></li>
-            </ul>
-          </div>
-        </div>
-        <div className="categories-card">
-          <a href="#Other"><img src="other.png" alt="icon" /></a>
-          <div className="dropdown">
-            <h6 className="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-              Other
-            </h6>
-            <ul className="dropdown-menu">
-              <li><button className="dropdown-item" type="button">Miscellaneous</button></li>
-            </ul>
-          </div>
-        </div>
+        )}
       </div>
     </>
   );

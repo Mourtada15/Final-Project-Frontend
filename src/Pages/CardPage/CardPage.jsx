@@ -15,8 +15,7 @@ const CardPage = () => {
     AOS.init({ duration: 1000 });
   }, []);
 
-  const { categories, subCategories, products } = useContext(DataContext);
- 
+  const { subCategories, products } = useContext(DataContext);
 
   // Filter products based on category from URL parameter
   const categoryParam = new URLSearchParams(location.search).get('category');
@@ -26,9 +25,6 @@ const CardPage = () => {
   // Filter products based on selected subcategory
   const filteredProductsBySubcategory = selectedSubcategory ? filteredProducts.filter(product => product.subCategoryID.name === selectedSubcategory) : filteredProducts;
 
-  // const handleSubcategoryFilter = (subcategory) => {
-  //   setSelectedSubcategory(subcategory);
-  // }
   const handleSubcategoryFilter = (subcategory) => {
     setSelectedSubcategory(subcategory === selectedSubcategory ? null : subcategory);
   }
@@ -39,28 +35,31 @@ const CardPage = () => {
       <div className="card-wrapper" id="House">
         <div className="category-header-in-wrapper" data-aos="fade-right">
           <span className='category-subcategory' ><h5>{categoryParam || 'House'} | </h5>
-            {subCategories.filter((subCategory) => subCategory.category === decodedCategoryParam).map((subCategory) =>
-              <button className={`cardpage-filter-button ${selectedSubcategory === subCategory.name ? 'category-subcategory-active' : ''}`} key={subCategory._id} onClick={() => handleSubcategoryFilter(subCategory.name)}>{subCategory.name}</button>
-            )}
+            {subCategories
+              .filter((subCategory) => subCategory.category === decodedCategoryParam)
+              .map((subCategory) =>
+                <button className={`cardpage-filter-button ${selectedSubcategory === subCategory.name ? 'category-subcategory-active' : ''}`} key={subCategory._id} onClick={() => handleSubcategoryFilter(subCategory.name)}>{subCategory.name}</button>
+              )}
           </span>
         </div>
         <div className="card-container" data-aos="fade-right">
-          {filteredProductsBySubcategory.map((product) => (
-            <div key={product._id} className='card' target='_blank'>
-              <div className="card-image-container">
-                <img src={`${instance.defaults.baseURL}/${product.image}`} className="card-img-top" alt="" />
-              </div>
-              <div className="card-body">
-                <h5 className="card-title">{product.title}</h5>
-                <p className="card-text">{product.description.substring(0, 100)}...</p>
-                <div className='card-more-details'>
-                  <Link to={`/cardedit?id=${product._id}`} className="btn btn-primary">More details</Link>
-                  <span style={{ color: "gray" }}>|</span>
-                  <p><b>{product.price}$</b></p>
+          {filteredProductsBySubcategory
+            .map((product) => (
+              <div key={product._id} className='card' target='_blank'>
+                <div className="card-image-container">
+                  <img src={`${instance.defaults.baseURL}/${product.image}`} className="card-img-top" alt="" />
+                </div>
+                <div className="card-body">
+                  <h5 className="card-title">{product.title}</h5>
+                  <p className="card-text">{product.description.substring(0, 100)}...</p>
+                  <div className='card-more-details'>
+                    <Link to={`/cardedit?id=${product._id}`} className="btn btn-primary">More details</Link>
+                    <span style={{ color: "gray" }}>|</span>
+                    <p><b>{product.price}$</b></p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
       </div>
       <Footer />

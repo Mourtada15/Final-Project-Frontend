@@ -52,7 +52,7 @@ const Login = () => {
         toast.error('Login failed. Please try again.');
       }
     } catch (error) {
-      const errorMessage = error.response?.data?.message || 'Login failed. Please try again.11'
+      const errorMessage = error.response?.data?.message || 'Login failed. Please try again.'
       toast.error(errorMessage);
     }
   }

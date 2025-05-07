@@ -5,6 +5,7 @@ import instance from "../../api";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Categories from "../Categories/Categories";
 
 function CardDetails() {
   const [formData, setFormData] = useState({

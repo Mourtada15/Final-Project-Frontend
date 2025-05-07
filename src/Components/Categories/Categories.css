@@ -8,7 +8,7 @@
 }
 
 .categories-card {
-  padding: 2rem;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,9 +16,9 @@
 }
 
 .categories-card img {
-  width: 5rem;
-  height: 5rem;
-  margin-bottom: 1rem;
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 0.2rem;
   transition: all 0.2s ease-in-out;
 }
 .categories-card img:hover {
@@ -31,4 +31,8 @@
 }
 .dropdown-toggle:hover {
   color: #5bb3ff;
+}
+
+.categories-card-container h6 {
+  margin: 0;
 }

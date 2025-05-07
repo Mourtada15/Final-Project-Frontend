@@ -6,6 +6,7 @@ import "./CardEdit.css";
 import AOS from "aos";
 import DataContext from '../../ContextAPI/Context'
 import instance from '../../api';
+import Categories from '../Categories/Categories';
 
 const CardEdit = () => {
   const location = useLocation();
@@ -58,6 +59,7 @@ const CardEdit = () => {
   return (
     <div className='cardedit-wrapper'>
       <Navbar />
+      <Categories />
       <div className='cardedit-container' data-aos="fade-right">
         <nav style={{ "--bs-breadcrumb-divider": "'>'" }} aria-label="breadcrumb">
           <ol className="breadcrumb">

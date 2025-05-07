@@ -6,6 +6,7 @@ import { Link, useLocation } from 'react-router-dom'; // Import useLocation hook
 import "./CardPage.css";
 import DataContext from '../../ContextAPI/Context'
 import AOS from "aos";
+import Categories from '../../Components/Categories/Categories';
 
 const CardPage = () => {
   const location = useLocation(); // Get the current location
@@ -32,6 +33,7 @@ const CardPage = () => {
   return (
     <div className='card-page-wrapper'>
       <Navbar />
+      <Categories />
       <div className="card-wrapper" id="House">
         <div className="category-header-in-wrapper" data-aos="fade-right">
           <span className='category-subcategory' ><h5>{categoryParam || 'House'} | </h5>

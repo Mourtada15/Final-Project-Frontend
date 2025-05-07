@@ -128,7 +128,7 @@ const Navbar = () => {
                   }
                   onClick={() => Authorized()}
                 >
-                  Sell
+                  Sell Your Item
                 </button>
               </li>
             </ul>

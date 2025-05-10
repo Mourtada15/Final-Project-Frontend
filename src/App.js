@@ -18,7 +18,8 @@ function App() {
         <Route path="/cardpage" element={<CardPage />} />
         <Route path="/carddetails" element={<CardDetails />} />
         <Route path="/cardedit" element={<CardEdit />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<NotFound />} />
+        {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
       </Routes>
     </Router>
   );

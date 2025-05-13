@@ -33,7 +33,6 @@ function ContextAwareToggle({ children, eventKey, callback }) {
   return (
     <>
       <div className="carddetails-wrapper">
-      <Navbar />
       <ToastContainer />
       <Accordion>
         <Card className="accordion-card">

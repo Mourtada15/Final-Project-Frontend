@@ -1,6 +1,5 @@
 import "./CardDetails.css";
 import { useState, useEffect, useRef } from "react";
-import Navbar from "../Navbar/Navbar";
 import instance from "../../api";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
@@ -89,7 +88,6 @@ function CardDetails() {
   return (
     <div className="carddetails-wrapper">
       <ToastContainer />
-      <Navbar />
       <h3>
         {" "}
         Your place to sell your items with{" "}

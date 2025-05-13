@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
 import instance from '../../api';
-import Navbar from "../../Components/Navbar/Navbar";
 import Footer from "../../Components/Footer/Footer"
 import { Link, useLocation } from 'react-router-dom'; // Import useLocation hook
 import "./CardPage.css";
@@ -32,7 +31,6 @@ const CardPage = () => {
 
   return (
     <div className='card-page-wrapper'>
-      <Navbar />
       <Categories />
       <div className="card-wrapper" id="House">
         <div className="category-header-in-wrapper" data-aos="fade-right">

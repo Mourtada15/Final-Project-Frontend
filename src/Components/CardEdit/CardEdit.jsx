@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import "./CardEdit.css";
 import AOS from "aos";
@@ -58,7 +57,6 @@ const CardEdit = () => {
 
   return (
     <div className='cardedit-wrapper'>
-      <Navbar />
       <Categories />
       <div className='cardedit-container' data-aos="fade-right">
         <nav style={{ "--bs-breadcrumb-divider": "'>'" }} aria-label="breadcrumb">

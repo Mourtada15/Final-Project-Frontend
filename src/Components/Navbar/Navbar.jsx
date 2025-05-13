@@ -7,6 +7,7 @@ import instance from "../../api";
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [searchQuery, setSearchQuery] = useState(""); // State to hold search query
+  const [searchResults, setSearchResults] = useState(null); // State to hold search results
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -17,11 +18,17 @@ const Navbar = () => {
     AOS.init({ duration: 1000 });
   }, []);
 
-  const handleSearch = (e) => {
+  const handleSearch = async (e) => {
     e.preventDefault();
-    // Perform search operation with searchQuery
-    console.log("Search query:", searchQuery);
-    // setSearchQuery('')
+    try {
+      // Make a request to the backend search route
+      const response = await instance.get(`/api/search?q=${searchQuery}`);
+      setSearchResults(response.data); // Store the results in state
+      console.log("Search Results:", response.data);
+      // navigate("/search-results", { state: { results: response.data } }); // Optionally, navigate to a new page for results
+    } catch (error) {
+      console.error("Error fetching search results:", error);
+    }
   };
 
   const Authorized = () => {
@@ -135,6 +142,43 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
+      {searchResults && (
+        <div className="search-results">
+          <h2>Search Results</h2>
+          {/* Render search results here */}
+          {/* You can use a component or display results directly */}
+          {searchResults.products?.length > 0 && (
+            <div>
+              <h3>Products</h3>
+              <ul>
+                {searchResults.products.map((product) => (
+                  <li key={product._id}>{product.title}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {searchResults.categories?.length > 0 && (
+            <div>
+              <h3>Categories</h3>
+              <ul>
+                {searchResults.categories.map((category) => (
+                  <li key={category._id}>{category.name}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {searchResults.subcategories?.length > 0 && (
+            <div>
+              <h3>Subcategories</h3>
+              <ul>
+                {searchResults.subcategories.map((subcategory) => (
+                  <li key={subcategory._id}>{subcategory.name}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      )}
     </>
   );
 };
